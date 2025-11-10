@@ -1,4 +1,7 @@
 package com.marketcontrol.Super.dtos;
 
-public record ProductRecordDto() {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record ProductRecordDto(@NotBlank String name, @NotBlank String cod_barras, @NotNull Long categoria_id) {
 }
