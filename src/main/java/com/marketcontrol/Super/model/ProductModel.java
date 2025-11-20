@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 
-@Data @Entity @Table(name = "products")
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @Entity
+@Table(name = "products")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) //  PARA COMPARAR OBJETOS PELO ID
 public class ProductModel implements Serializable {
 
