@@ -4,6 +4,8 @@ import com.marketcontrol.Super.dtos.ProductRecordDto;
 import com.marketcontrol.Super.model.ProductModel;
 import com.marketcontrol.Super.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    ProductRepository productRepository;
+
+   private final ProductRepository productRepository;
 
     @Transactional
-    public ProductModel save(ProductRecordDto productRecordDto) {
+    public ProductModel save(@NotNull ProductRecordDto productRecordDto) {
+        if (productRepository.existsByCodBarras(productRecordDto.codBarras())) {
+            throw new RuntimeException("Conflito código de barras já cadastrado no sistema");
+        }
         var productModel = new ProductModel();
         BeanUtils.copyProperties(productRecordDto, productModel);
         productModel.setCategoria(productModel.getCategoria().toUpperCase());
