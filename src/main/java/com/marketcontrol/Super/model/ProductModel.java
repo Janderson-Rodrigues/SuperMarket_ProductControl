@@ -1,8 +1,10 @@
 package com.marketcontrol.Super.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "products")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true) //  PARA COMPARAR OBJETOS PELO ID
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProductModel implements Serializable {
 
     @Serial
@@ -29,10 +31,11 @@ public class ProductModel implements Serializable {
     private String name;
 
     @Column(name = "codigo_barras", unique = true)
-    private String cod_barras;
+    private String codBarras;
 
     private String categoria;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LoteModel> lotes = new ArrayList<>();
 }
