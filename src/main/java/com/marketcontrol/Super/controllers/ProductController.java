@@ -33,7 +33,6 @@ public class ProductController {
         }
     }
 
-    //GET ALL
     @GetMapping("/products")
     public ResponseEntity<List<ProductModel>> getAllProducts(){
     return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
