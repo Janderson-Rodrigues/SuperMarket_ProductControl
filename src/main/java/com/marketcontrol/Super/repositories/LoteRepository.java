@@ -12,9 +12,9 @@ import java.util.UUID;
 @Repository
 public interface LoteRepository  extends JpaRepository<LoteModel, UUID> {
 
-    List<LoteModel> findByDataValidadeBetweenAndStatus(LocalDate dataInicio, LocalDate dataFim, StatusLote status);
+    List<LoteModel> findByExpirationDateBetweenAndStatusLote(LocalDate dataInicio, LocalDate dataFim, StatusLote status);
 
-    List<LoteModel> findByDataValidadeBeforeAndStatus(LocalDate hoje, StatusLote status);
+    List<LoteModel> findByExpirationDateBeforeAndStatusLote(LocalDate hoje, StatusLote status);
 
-    List<LoteModel> findByProdutoId(UUID produtoId);
+    List<LoteModel> findByProduto_IdProduct(UUID idProduct);
 }
