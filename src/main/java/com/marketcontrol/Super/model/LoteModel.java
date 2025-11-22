@@ -1,9 +1,11 @@
 package com.marketcontrol.Super.model;
 
+import com.fasterxml.jackson.annotation.*;
 import com.marketcontrol.Super.model.enums.StatusLote;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -33,9 +35,12 @@ public class LoteModel {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusLote statusLote;
+    private StatusLote statusLote = StatusLote.ATIVO;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lotes"})
+    @ToString.Exclude
     private ProductModel produto;
+
 }
