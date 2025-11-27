@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<ProductModel> findByid(UUID id) {
+    public Optional<ProductModel> findById(UUID id) {
         return productRepository.findById(id);
     }
 

@@ -29,12 +29,10 @@ public class LoteService {
         var loteModel = new LoteModel();
         BeanUtils.copyProperties(loteRecordDto, loteModel);
 
-        // Regras de inicialização
         loteModel.setQuantidadeInicial(loteRecordDto.quantidade());
         loteModel.setQuantidadeAtual(loteRecordDto.quantidade());
         loteModel.setStatusLote(StatusLote.ATIVO);
 
-        // Amarra o produto
         loteModel.setProduto(product);
 
         return loteRepository.save(loteModel);
@@ -44,12 +42,6 @@ public class LoteService {
         return loteRepository.findAll();
     }
 
-    // --- 3. INTELIGÊNCIA DO NEGÓCIO (O Diferencial) ---
-
-    /**
-     * Retorna lotes que vão vencer nos próximos X dias.
-     * Exemplo: Se hoje é dia 01 e diasParaVencer = 7, busca entre dia 01 e 08.
-     */
     public List<LoteModel> buscarLotesEmAlerta(int diasParaVencer) {
         LocalDate hoje = LocalDate.now();
         LocalDate dataLimite = hoje.plusDays(diasParaVencer);
@@ -62,9 +54,6 @@ public class LoteService {
         );
     }
 
-    /**
-     * Retorna lotes que JÁ venceram, mas ainda constam como ATIVO (erro de processo).
-     */
     public List<LoteModel> buscarLotesVencidos() {
         LocalDate hoje = LocalDate.now();
 
@@ -74,9 +63,6 @@ public class LoteService {
         );
     }
 
-    /**
-     * Busca todos os lotes de um produto específico (Histórico do produto)
-     */
     public List<LoteModel> buscarPorProduto(UUID produtoId) {
         return loteRepository.findByProduto_IdProduct(produtoId);
     }
