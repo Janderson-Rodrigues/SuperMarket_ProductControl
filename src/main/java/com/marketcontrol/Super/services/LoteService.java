@@ -37,7 +37,6 @@ public class LoteService {
 
         return loteRepository.save(loteModel);
     }
-    // --- 2. LEITURA GERAL ---
     public List<LoteModel> findAll() {
         return loteRepository.findAll();
     }
@@ -45,12 +44,10 @@ public class LoteService {
     public List<LoteModel> buscarLotesEmAlerta(int diasParaVencer) {
         LocalDate hoje = LocalDate.now();
         LocalDate dataLimite = hoje.plusDays(diasParaVencer);
-
-        // Usa o método personalizado que criamos no Repository
         return loteRepository.findByExpirationDateBetweenAndStatusLote(
                 hoje,
                 dataLimite,
-                StatusLote.ATIVO // Só queremos ver o que ainda está na prateleira
+                StatusLote.ATIVO
         );
     }
 
